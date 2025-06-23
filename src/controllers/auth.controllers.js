@@ -66,7 +66,12 @@ export const loginDoc = async (req, res, next) => {
     const docToken = jwtService.genDocToken(payload);
     console.log("docToken", docToken);
 
-    res.status(200).json({ success: true, docToken });
+    res.status(200).json({
+      id: existDoctor.id,
+      username: existDoctor.username,
+      specialization: existDoctor.specialization,
+      accessToken: docToken,
+    });
   } catch (error) {
     next(error);
   }
@@ -130,7 +135,9 @@ export const loginUser = async (req, res, next) => {
     const userToken = jwtService.genUserToken(payload);
     console.log("docToken", userToken);
 
-    res.status(200).json({ success: true, userToken });
+    res
+      .status(200)
+      .json({ id: existUser.id, username: existUser.username, userToken });
   } catch (error) {
     next(error);
   }
